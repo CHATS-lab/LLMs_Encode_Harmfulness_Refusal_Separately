@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Decoupling Harmfulness from Refusal in LLMs</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        a {
+            color: #1a0dab;
+        }
+    </style>
+</head>
+<body>
+    <h1>Decoupling Harmfulness from Refusal in LLMs</h1>
+    <p><strong>Authors:</strong> Jiachen Zhao (Northeastern University), Jing Huang, Zhengxuan Wu (Stanford University), David Bau, Weiyan Shi (Northeastern University)</p>
+
+    <h2>Overview</h2>
+    <p>This work reveals that large language models (LLMs) encode the concepts of <strong>harmfulness</strong> and <strong>refusal</strong> as <em>distinct latent representations</em>. By analyzing hidden states at specific token positions, the authors demonstrate that:</p>
+    <ul>
+        <li><strong>Harmfulness</strong> is represented earlier in the input sequence (at the last token of the instruction).</li>
+        <li><strong>Refusal</strong> is encoded later (at the end of the full prompt).</li>
+    </ul>
+
+    <h2>Key Contributions</h2>
+    <ul>
+        <li>Show that harmfulness and refusal can be disentangled in LLM latent space.</li>
+        <li>Introduce a <em>harmfulness direction</em> in the latent space that alters the model’s internal belief of input safety.</li>
+        <li>Propose an intrinsic "latent guard" that uses internal harmfulness beliefs to detect unsafe prompts, robust against jailbreak attacks and adversarial fine-tuning.</li>
+    </ul>
+
+    <h2>Paper</h2>
+    <p>Read the full paper <a href="https://openreview.net/forum?id=pH3XAQME6c" target="_blank">here on OpenReview</a>.</p>
+</body>
+</html>
