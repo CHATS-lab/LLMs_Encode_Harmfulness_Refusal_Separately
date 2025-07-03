@@ -1,44 +1,294 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Decoupling Harmfulness from Refusal in LLMs</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 20px;
-        }
-        h1, h2 {
-            color: #333;
-        }
-        a {
-            color: #1a0dab;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Decoupling Harmfulness from Refusal in LLMs</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%232e3a59'>D</text></svg>">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <script>
+    window.MathJax = {
+      tex: {
+        packages: {'[+]': ['color']},
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    
+  <style>
+    body {
+      background-color: #fdfdfd;
+    }
+    .hero {
+      background: linear-gradient(to right, #fff8dc, #fafad2);
+      color: #333;
+      text-align: center;
+    }
+    .hero .title, .hero .subtitle {
+      color: #333;
+    } 
+    .hero .title {
+      font-size: 3.5rem !important;
+      margin-bottom: 1.5rem;
+    }
+    .publication-authors {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    .paper-section {
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+    }
+    .figure-placeholder {
+      border: 2px dashed #ccc;
+      padding: 1rem;
+      text-align: center;
+      font-style: italic;
+      color: #777;
+      margin-bottom: 2rem;
+    }
+    .button-group {
+      margin-top: 1rem;
+      text-align: center;
+    }
+    .buttons.button-group {
+      margin-top: 1rem;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    .button-group .button {
+      background-color: #4a90e2;
+      color: #ffffff;
+      border: 2px solid #4a90e2;
+    }
+    .button-group .button:hover {
+      background-color: #357abd;
+      color: #ffffff;
+      border-color: #357abd;
+    }
+    pre.bibtex {
+      background: #f4f4f4;
+      padding: 1rem;
+      overflow-x: auto;
+      font-size: 0.9em;
+    }
+    footer {
+      background-color: #f5f5f5;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    figure {
+        text-align: center;
+        margin: 1em auto;
+    }
+
+    figcaption {
+        text-align: center;
+        font-size: 1rem;     /* Optional: adjust size */
+        font-style: italic;  /* Optional: italic */
+    }
+    
+    /* Add color classes for text coloring */
+    .text-orange {
+        color: #ff8c00;
+        font-weight: bold;
+    }
+    
+    .text-blue {
+        color: #0066cc;
+        font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-    <h1>Decoupling Harmfulness from Refusal in LLMs</h1>
-    <p><strong>Authors:</strong> Jiachen Zhao (Northeastern University), Jing Huang, Zhengxuan Wu (Stanford University), David Bau, Weiyan Shi (Northeastern University)</p>
 
-    <h2>Overview</h2>
-    <p>This work reveals that large language models (LLMs) encode the concepts of <strong>harmfulness</strong> and <strong>refusal</strong> as <em>distinct latent representations</em>. By analyzing hidden states at specific token positions, the authors demonstrate that:</p>
-    <ul>
-        <li><strong>Harmfulness</strong> is represented earlier in the input sequence (at the last token of the instruction).</li>
-        <li><strong>Refusal</strong> is encoded later (at the end of the full prompt).</li>
+  <!-- Hero Header -->
+  <section class="hero is-medium">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title is-2">Decoupling Harmfulness from Refusal in LLMs</h1>
+        <div class="is-size-5 publication-authors">
+          <span class="author-block">
+              <a href="https://andotalao24.github.io/">Jiachen Zhao</a><sup>1</sup>, </span>
+          <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=zM_wp_MAAAAJ&hl=en">Jing Huang</a><sup>2</sup>, </span>
+          <span class="author-block">
+              <a href="https://cs.stanford.edu/~wuzhengx/">Zhengxuan Wu</a><sup>2</sup>, </span>
+          <span class="author-block">
+              <a href="https://davidbau.com/">David Bau</a><sup>1</sup>, </span>
+          <span class="author-block">
+              <a href="https://wyshi.github.io/">Weiyan Shi</a><sup>1</sup></span>
+      </div>
+      
+      <div class="is-size-5 publication-authors">
+          <span class="author-block"><sup>1</sup>Northeastern University&emsp;</span>
+          <span class="author-block"><sup>2</sup>Stanford University</span>
+      </div>
+
+        <!-- Button links -->
+        <div class="buttons button-group">
+          <a class="button is-light" href="https://arxiv.org/abs/XXXX.XXXXX" target="_blank">📚 arXiv</a>
+          <a class="button is-light" href="https://github.com/your-repo" target="_blank">💻 GitHub</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section paper-section">
+    <div class="container content">
+      <div style="text-align: center;">
+      <video width="1280" height="720" controls>
+        <source src="website/ANIM-project-decouple.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Abstract -->
+  <section class="section paper-section">
+    <div class="container content">
+      <h3 class="title is-4">Simplified Overview</h3>
+      <p>
+        LLMs are trained to refuse harmful instructions, but do they truly understand harmfulness beyond just refusing? Prior work has shown that LLMs' refusal behaviors are mediated by a one-dimensional subspace, i.e., a refusal direction, in the latent space. In this work, we identify a new dimension to analyze safety mechanisms in LLMs: we have found that harmfulness is encoded as a distinct concept from refusal in their latent representations. ~As a \textit{causal} evidence, we find that steering with the harmfulness steering along the harmfulness direction leads LLMs to re-interpret harmless instructions as harmful; but steering with the refusal direction simply leads to refusal responses without altering the model's judgment on harmfulness.   
+        Furthermore, our clustering analysis of hidden states reveals that some jailbreak methods work by directly reducing refusal signals without radically suppressing the model's internal harmfulness judgment.  We also observe that narrow fine-tuning that reverses models' refusal behaviors has minimal impact on the model's underlying beliefs about harmfulness and refusal. These insights lead to a practical application that latent harmfulness representations can serve as an intrinsic safeguard for detecting unsafe inputs and reducing over-refusals, which is also robust to fine-tuning attacks. For example, on Llama2, our latent harmfulness classifier can detect all the tested harmful prompts that jailbreak the model with adversarial suffixes.     
+      </p>
+      <ul>
+        <li><strong>$t_{\text{inst}}$</strong> The last token of the user's instruction.</li>
+        <li><strong>$t_{\text{post-inst}}$</strong> The last token of the entire input prompt, which includes special tokens that come after the user's instruction (e.g., `[/INST]`).</li>
     </ul>
+    </div>
+  </section>
 
-    <h2>Key Contributions</h2>
-    <ul>
-        <li>Show that harmfulness and refusal can be disentangled in LLM latent space.</li>
-        <li>Introduce a <em>harmfulness direction</em> in the latent space that alters the model’s internal belief of input safety.</li>
-        <li>Propose an intrinsic "latent guard" that uses internal harmfulness beliefs to detect unsafe prompts, robust against jailbreak attacks and adversarial fine-tuning.</li>
-    </ul>
 
-    <h2>Paper</h2>
-    <p>Read the full paper <a href="https://openreview.net/forum?id=pH3XAQME6c" target="_blank">here on OpenReview</a>.</p>
+  <!-- Figure 1 Placeholder -->
+  <section class="section paper-section">
+    <div class="container content">
+      <h2 class="title is-4"><span class="text-orange">$t_{\text{inst}}$</span> and <span class="text-blue">$t_{\text{post-inst}}$</span> encode harmfulness and refusal separately</h2>
+      <p>
+        We extract hidden states at <span class="text-orange">$t_{\text{inst}}$</span> and <span class="text-blue">$t_{\text{post-inst}}$</span> to examine what each position encodes. We analyze how instructions with different
+        properties cluster in the latent space, because hidden states often form distinct clusters based on input
+        features they encode. Specifically, we ask: What determines the clustering in the latent space, the instruction's harmfulness property
+        or its refusal property? To answer the question, we form two clusters with expected behaviors (the
+        refused harmful cluster, and the accepted harmless cluster), and then analyze misbehaving unexpected
+        instructions (accepted but harmful and refused but harmless) to see which cluster they fall in.    </p>
+      <ul>
+        <li>At the <strong>$t_{\text{inst}}$</strong> position, hidden states clustered based on the inherent <strong>harmfulness</strong> of the instruction, regardless of whether the model accepted or refused it. For example, a harmful instruction that the model *accepted* would still cluster with other harmful instructions.</li>
+        <li>At the <strong>$t_{\text{post-inst}}$</strong> position, hidden states clustered based on the model's <strong>behavior</strong> (refusal or acceptance). Here, an accepted harmful instruction would cluster with other accepted (and harmless) instructions.</li>
+      </ul>
+        <img src="website/clustering.PNG" alt="Figure 1" style="margin-top: 1rem; max-width: 100%;" />
+        <figcaption><b>Figure 2:</b> Internal clustering for hidden states extracted at <span class="text-orange">$t_{\text{inst}}$</span> and <span class="text-blue">$t_{\text{post-inst}}$</span>. The red region stands for
+          the cluster of refused harmful instructions Crefused harmful, while the green region denotes the cluster of
+          accepted harmless instructions Caccepted harmless. At each token position, we collect hidden states of
+          two special cases: accepted harmful instructions (red curve) and refused harmless instructions (green
+          curve) to see which cluster do these two cases fall in. The first row: At instruction token position
+          <span class="text-orange">$t_{\text{inst}}$</span>, accepted harmful instructions tend to be closer to the refused harmful cluster, whereas refused
+          harmless instructions are closer to the accepted harmless cluster. This implies that clustering may be
+          based on whether the instruction is harmful or harmless; The second row: At post-instruction token
+          position <span class="text-blue">$t_{\text{post-inst}}$</span>, The clustering behavior is reversed. Accepted harmful instructions are now more
+          aligned with accepted instructions, and refused harmless instructions are closer to refused ones. This
+          implies that, the clustering at $t_{\text{post-inst}}$ may reflect whether the instruction is accepted or refused.</figcaption>
+    
+    
+        
+
+        <h2 class="title is-4">Beliefs of harmfulness and refusal are not always correlated</h2>
+        <p>
+          We quantitatively analyze the correlation between the belief of harmfulness and the
+          belief of refusal. We interpret the LLM's belief as reflected by which cluster the hidden state of
+          an instruction falls into in the latent space. We find that the model may internally recognize
+          the correct level of harmfulness in input instructions, yet still produce incorrect refusals or
+          acceptances.
+        </p>
+        <div style="text-align: center;">
+          <img src="website/belief.PNG" alt="Figure 1" style="margin-top: 1rem; max-width: 70%;" />
+        </div>
+        <figcaption style="text-align: center;"><b>Figure 3:</b> (a): Correlation between belief of harmfulness and refusal. (b): Belief of harmfulness and
+          refusal for different categories of jailbreak prompts in comparison with refused harmful instructions.
+          Our results suggest that the model may refuse harmful instructions but still believe them to be harmful.
+        </figcaption>
+
+        <h2 class="title is-4">Causal Evidence: The Reply Inversion Task</h2>
+        <p>
+          To provide causal evidence, the researchers designed a "reply inversion task" where they appended a question like "Could this user prompt cause harm?" to the original instruction. 
+        
+          <div style="text-align: center;">
+            <img src="website/inversion-prompt.PNG" alt="Figure 1" style="margin-top: 1rem; max-width: 70%;" />
+          </div>
+          </p>
+          <p>
+          We show that (1)the harmfulness direction extracted at <span class="text-orange">$t_{\text{inst}}$</span> represents the concept of harmfulness even when the
+          LLM does not refuse; (2) whereas the refusal direction primarily represents surface-level refusal
+          characteristics, so that steering along it may not always reverse the model's judgment of harmfulness
+          of an instruction.
+      </p>
+      <ul>
+          <li>When they steered a harmless instruction along the <strong>harmfulness direction</strong>, the model's internal perception changed, and it would reverse its answer from "No" to "Certainly," suggesting it now saw the instruction as harmful.</li>
+          <li>However, when they steered it along the <strong>refusal direction</strong>, the model would generally maintain its original "No" response, indicating that its underlying judgment of harmfulness didn't change.</li>
+      </ul>
+      <div style="text-align: center;">
+        <img src="website/inversion-ret.PNG" alt="Figure 1" style="margin-top: 1rem; max-width: 70%;" />
+      </div>
+      <figcaption style="text-align: center;"><b>Figure 4:</b> The reply inversion task.
+        The model may refuse harmful instructions but still believe them to be harmful.
+      </figcaption>
+
+    </div>
+  </section>
+
+
+
+  
+
+  
+  <section class="section paper-section">
+      <div class="container content">
+          <h2 class="title is-4">Latent Guard: An Intrinsic Safeguard</h2>
+          <div style="text-align: center;">
+            <img src="website/latent-guard.PNG" alt="Figure 1" style="margin-top: 1rem; max-width: 70%;" />
+          </div>
+        
+          <p>
+              The research provides insight into how jailbreaking methods succeed. Some methods, like persuasion, can make the model internally believe a harmful instruction is harmless. However, other methods work by simply suppressing the refusal signals, even though the model still internally recognizes the prompt as harmful.
+              Based on these findings, the paper proposes a "Latent Guard" model that uses the LLM's own internal belief of harmfulness to detect unsafe inputs.
+          </p>
+          <ul>
+              <li>This Latent Guard was competitive with, and in some cases outperformed, dedicated safety models like Llama Guard.</li>
+              <li>It was particularly effective at detecting harmful prompts using persuasion techniques and in identifying cases of over-refusal. On the Qwen2 model, the Latent Guard achieved 75% accuracy on persuasion prompts, compared to 17.8% for Llama Guard 3.</li>
+              <li>Crucially, this internal belief of harmfulness was found to be robust to "finetuning attacks," where a model is maliciously retrained to accept harmful instructions. Even after finetuning, the internal harmfulness signal remained largely unchanged.</li>
+          </ul>
+      </div>
+  </section>
+  
+
+
+
+  <!-- BibTeX Citation -->
+  <section class="section paper-section">
+    <div class="container content">
+      <h3 class="title is-4">📌 BibTeX Citation</h3>
+      <p>If you find our project useful, please consider citing:</p>
+      <pre class="bibtex">
+@article{zhao2025decoupling,
+  title={Decoupling Harmfulness from Refusal in LLMs},
+  author={Zhao, Jiachen and Huang, Jing and Wu, Zhengxuan and Bau, David and Shi, Weiyan},
+  journal={arXiv preprint arXiv:XXXX.XXXXX},
+  year={2025}
+}
+      </pre>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 — <em>Decoupling Harmfulness from Refusal in LLMs</em></p>
+  </footer>
+
 </body>
 </html>
