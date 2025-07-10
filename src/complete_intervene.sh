@@ -1,5 +1,5 @@
 python -u ../src/intervention.py \
-	--test_data_pth "data/example_test_probe_harmless.json" \
+	--test_data_pth "data/example_test_harmless.json" \
 	--output_pth "output/inversion.json" \
 	--intervention_vector "../data/pt/" \
   --reverse_intervention 1 \
