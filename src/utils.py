@@ -1,7 +1,8 @@
 import json
 import numpy as np
 import pickle
-
+import openai
+import asyncio
 from template_inversion import inversion_prompts_choice
 PUNCTUATIONS=['.','?','!',';',':',',','</s>']
 REFUSAL_PHRASE = [
@@ -155,3 +156,32 @@ def ret_topk_tok(probs,pos,k=10):
   v=np.sort(probs[pos])[-k:]
   return sort_idx,v
 
+
+def requestLLM(**kwargs):
+    response = openai.Completion.create(**kwargs)
+    ret=[pred['text'] for pred in response['choices']]
+    probs=[p['logprobs'] for p in response['choices']]
+    #print(response.choices[0].logprobs.token_logprobs)
+
+    #print(response.choices[0])
+    return ret,probs
+
+
+async def requestChat(**kwargs):
+    messagelist = kwargs['messages']
+    ret=[]
+    for message in messagelist:
+        kwargs['messages']=message
+        ret.append(openai.ChatCompletion.acreate(**kwargs))
+
+    return await asyncio.gather(*ret)
+
+
+async def requestResponse(modelname,**kwargs):
+    if modelname=='chat':
+        res = await requestChat(**kwargs)
+        return [completion.choices[0].message.content for completion in res],[]
+
+    else:
+
+        return requestLLM(**kwargs)

@@ -11,7 +11,7 @@ from typing import List, Dict, Any, Tuple, Optional
 import numpy as np
 import openai
 
-from keys import API_KEY
+#from keys import API_KEY
 from utils import read_row, requestResponse, REFUSAL_PHRASE
 
 # Configure logging
@@ -305,14 +305,17 @@ def easy_eval(eval_data: List[Dict], tag: str = 'response', mode: str = 'refusal
     return scores
 
 
-def process_layer_evaluation(layer_idx: int, output_file: Path,eval_mode: str) -> None:
+def process_layer_evaluation(layer_idx: int, output_file: Path, eval_mode: str, input_folder: str, filename_pattern: str) -> None:
     """Process evaluation for a specific layer.
     
     Args:
         layer_idx: Layer index to evaluate
         output_file: Output file path
+        eval_mode: Evaluation mode
+        input_folder: Folder containing the layer files
+        filename_pattern: Filename pattern with {layer_idx} placeholder
     """
-    file_path = Path(f'output/inversion/intervene/tmp/coeff2-qwen-tmp6-choice2-harmless-te_intervene-context-reverse-hf-dir-intervene{layer_idx}.json')
+    file_path = Path(input_folder) / filename_pattern.format(layer_idx=layer_idx)
     
     if not file_path.exists():
         logger.warning(f"File does not exist: {file_path}")
@@ -339,20 +342,17 @@ def process_layer_evaluation(layer_idx: int, output_file: Path,eval_mode: str) -
             return
         
         # Calculate metrics
-        harmful_rate = sum(binary_scores) / len(binary_scores) * 100
-        refusal_rate = 100 - harmful_rate
-        std_dev = np.std(np.array(binary_scores) * 100)
+        refusal_rate = 100-sum(binary_scores) / len(binary_scores) * 100
+       
         
         # Log results
-        logger.info(f"Layer {layer_idx}: harmful_rate={harmful_rate:.2f}%, "
-                   f"refusal_rate={refusal_rate:.2f}%, std={std_dev:.2f}")
+        logger.info(f"Layer {layer_idx}: "
+                   f"refusal_rate={refusal_rate:.2f}%")
         
         # Write to file
         with open(output_file, 'a') as f:
-            f.write(f"Layer {layer_idx} harmful rate: {harmful_rate:.2f}\n")
-            f.write(f"Refusal rate: {refusal_rate:.2f}\n")
-            f.write(f"Std: {std_dev:.2f}\n")
-            f.write(f"Rate of -1: {invalid_rate:.2f}\n\n")
+            f.write(f"Layer {layer_idx}: refusal_rate={refusal_rate:.2f}%\n")
+
             
     except Exception as e:
         logger.error(f"Error processing layer {layer_idx}: {e}")
@@ -372,12 +372,20 @@ def main():
                        help='Model engine')
     parser.add_argument('--batch', default=DEFAULT_BATCH_SIZE, type=int,
                        help='Batch size for evaluation')
-    parser.add_argument('--eval_mode', default='refusal', type=str,
+    parser.add_argument('--eval_mode', default='inversion', type=str,
                        help='Evaluation mode')
     parser.add_argument('--icl', default=0, type=int,
                        help='In-context learning flag')
     parser.add_argument('--k', default=3, type=int,
                        help='Number of exemplars for ICL')
+    parser.add_argument('--input_folder', 
+                       default='output',
+                       type=str,
+                       help='Folder containing the layer files')
+    parser.add_argument('--filename_pattern',
+                       default='coeff2-qwen-tmp6-choice2-harmless-te_intervene-context-reverse-hf-dir-intervene{layer_idx}.json',
+                       type=str,
+                       help='Filename pattern with {layer_idx} placeholder')
     
     args = parser.parse_args()
     config = EvaluationConfig(**vars(args))
@@ -394,7 +402,7 @@ def main():
     # Process each layer
     for layer_idx in range(NUM_LAYERS):
         logger.info(f"Processing layer {layer_idx}")
-        process_layer_evaluation(layer_idx, output_file, config.eval_mode)
+        process_layer_evaluation(layer_idx, output_file, config.eval_mode, args.input_folder, args.filename_pattern)
     
     logger.info("Evaluation completed")
 
