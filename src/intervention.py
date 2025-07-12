@@ -32,7 +32,7 @@ from path import *
 # Constants
 DECODING_STEP = 3
 MODEL = 'llama'
-
+COUNT_ADD=0
 
 @contextlib.contextmanager
 def add_hooks(
@@ -72,7 +72,7 @@ def get_activation_addition_input_pre_hook(
 
     def hook_fn(module, input):
         nonlocal vector, cache
-
+        global COUNT_ADD
         if isinstance(input, tuple):
             activation = input[0]
         else:
@@ -80,14 +80,14 @@ def get_activation_addition_input_pre_hook(
         
         vector = vector.to(activation)
         
-        if DECODING_STEP == -1 or len(cache) < DECODING_STEP:  # when equal to -1, till end of generation
+        if DECODING_STEP == -1 or COUNT_ADD < DECODING_STEP:  # when equal to -1, till end of generation
             assert coeff != 0
             if intervene_all:
                 activation += coeff * vector
             else:
                 for pos in positions:
                     activation[:, pos, :] += coeff * vector
-
+            COUNT_ADD+=1
         if record:
             cache.append(activation)
 
@@ -134,7 +134,7 @@ def complete_with_intervention(
     n_layers = 28 if MODEL == 'qwen' else 32
     ret = []
     cache = [[] for _ in range(n_layers)]
-    
+    global COUNT_ADD
     for i in tqdm(range(0, len(instructions), batch_size)):
         raw_inp = instructions[i][args['arg_key_prompt']]  # assume batch size always 1
 
@@ -224,7 +224,7 @@ def complete_with_intervention(
                     'tokens': tokens,
                     'probs': prob,
                 })
-
+            COUNT_ADD=0
         ret.extend(completions)
             
         if len(cache[0]) > 0:
