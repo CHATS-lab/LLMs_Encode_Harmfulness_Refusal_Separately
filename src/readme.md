@@ -1,5 +1,5 @@
 
-## Steering 
+
 For intervention experiments,  run complete_intervene.sh  
 
 Key parameters:
