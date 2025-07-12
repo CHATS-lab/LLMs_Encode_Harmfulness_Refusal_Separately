@@ -372,7 +372,7 @@ def main():
                        help='Model engine')
     parser.add_argument('--batch', default=DEFAULT_BATCH_SIZE, type=int,
                        help='Batch size for evaluation')
-    parser.add_argument('--eval_mode', default='inversion', type=str,
+    parser.add_argument('--eval_mode', default='refusal', type=str,
                        help='Evaluation mode')
     parser.add_argument('--icl', default=0, type=int,
                        help='In-context learning flag')
