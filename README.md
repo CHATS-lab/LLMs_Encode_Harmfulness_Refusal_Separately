@@ -19,7 +19,7 @@ This repository contains the official implementation for the paper **"LLMs Encod
 
 ```
 src/
-├── 📄 Core Scripts
+├── Core Scripts
 │   ├── extract_hidden.py          # Extract hidden states from LLMs
 │   ├── intervention.py            # Controlled text generation with interventions
 │   ├── inference.py               # Model inference on datasets
@@ -62,9 +62,9 @@ sh complete_intervene.sh
 
 Key parameters:
 - `--intervention_vector`: Path to steering vectors
-- `--reverse_intervention`: Whether to reverse intervention (1/0)
-- `--coeff_select`: Coefficient selection for intervention strength
-- `--use_inversion`: Whether to do reply inversion (1/0)
+- `--reverse_intervention`: Whether to reverse the steering vector (1/0)
+- `--use_inversion`: Whether to do reply inversion task (1/0)
+
 
 
 ### Latent Guard Implementation
