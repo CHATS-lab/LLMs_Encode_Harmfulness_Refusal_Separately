@@ -5,7 +5,8 @@
 
 This repository contains the official implementation for the paper **"LLMs Encode Harmfulness and Refusal Separately"**. Our research reveals that large language models (LLMs) encode harmfulness and refusal as distinct concepts in their latent representations.
 
-- [paper](https://arxiv.org/abs/XXXX.XXXXX)
+- [Paper](https://arxiv.org/abs/XXXX.XXXXX)
+- [Website](https://chats-lab.github.io/LLMs_Encode_Harmfulness_Refusal_Separately/)
 
 
 ### Key Findings
