@@ -5,7 +5,7 @@
 
 This repository contains the official implementation for the paper **"LLMs Encode Harmfulness and Refusal Separately"**. Our research reveals that large language models (LLMs) encode harmfulness and refusal as distinct concepts in their latent representations.
 
-- [Paper](https://arxiv.org/abs/XXXX.XXXXX)
+- [Paper](https://arxiv.org/abs/2507.11878)
 - [Website](https://chats-lab.github.io/LLMs_Encode_Harmfulness_Refusal_Separately/)
 
 
@@ -86,11 +86,14 @@ python run_llama_guard.py --input data/test_prompts.json --output results/llamag
 If you find this work useful, please cite our paper:
 
 ```bibtex
-@article{zhao2025decoupling,
-  title={Decoupling Harmfulness from Refusal in LLMs},
-  author={Zhao, Jiachen and Huang, Jing and Wu, Zhengxuan and Bau, David and Shi, Weiyan},
-  journal={arXiv preprint arXiv:XXXX.XXXXX},
-  year={2025}
+@misc{zhao2025llmsencodeharmfulnessrefusal,
+      title={LLMs Encode Harmfulness and Refusal Separately}, 
+      author={Jiachen Zhao and Jing Huang and Zhengxuan Wu and David Bau and Weiyan Shi},
+      year={2025},
+      eprint={2507.11878},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2507.11878}, 
 }
 ```
 
