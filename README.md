@@ -13,7 +13,7 @@ This repository contains the official implementation for the paper **"LLMs Encod
 
 - **Separate Encoding**: Hidden states at the last token of instruction tokens (`t_inst`) encode harmfulness, while the last token of post-instruction tokens (`t_post-inst`) encodes refusal behavior
 - **Causal Evidence**: Steering along the harmfulness direction changes the model's internal perception of harmfulness, while the refusal direction only affects surface-level refusal characteristics
-- **Jailbreak Analysis**: Some jailbreak methods work by suppressing refusal signals without altering the model's internal harmfulness judgment
+- **Jailbreak Analysis**: Some jailbreak methods work by suppressing refusal signals without reversing the model's internal harmfulness judgment
 - **Latent Guard**: Internal harmfulness representations can serve as safeguards for detecting unsafe inputs
 
 ##  Project Structure
@@ -49,8 +49,7 @@ Our analysis focuses on two key token positions:
 ```bash
 sh run_diff_mean.sh
 ```
-This will reproduce hidden states for two specified clusters (e.g., harmful prompts and harmless prompts) and according difference 
-By default, we extract last 2 instruction tokens + all the special post-instruction tokens. 
+This will reproduce hidden states for two specified clusters (e.g., harmful prompts and harmless prompts) and the according direction from one cluster to the other.
 
 ### Intervention Experiments
 
@@ -62,22 +61,21 @@ sh complete_intervene.sh
 ```
 
 Key parameters:
-- `--intervention_vector`: Path to steering vectors
+- `--intervention_vector`: Path to the steering vectors
 - `--reverse_intervention`: Whether to reverse the steering vector (1/0)
 - `--use_inversion`: Whether to do reply inversion task (1/0)
 
 
-
 ### Latent Guard Implementation
 
-One of our contribution is the **Latent Guard** - an intrinsic safeguard that uses the model's own internal harmfulness representations.
+One of our contributions is the **Latent Guard** - an intrinsic safeguard that uses the model's own internal harmfulness representations.
 Implementations are in `classifier.ipynb`.
 
 #### Compare with Baselines
 
 ```bash
 # Run LlamaGuard 3 with Ollama
-python run_llama_guard.py --input data/test_prompts.json --output results/llamaguard.txt
+python run_llama_guard.py --input data/{test_prompts_name}.json --output results/llamaguard.txt
 ```
 
 
