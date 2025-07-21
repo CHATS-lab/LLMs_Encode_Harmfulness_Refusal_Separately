@@ -387,6 +387,11 @@
           
           <div class="figure-container">
             <img src="website/latent-guard.PNG" alt="Figure 1" style="max-width: 70%;" />
+            <figcaption><b>Table 1:</b> Classification accuracy (%) of Latent Guard and Llama Guard 3 on test cases where LLMs
+              are jailbroken by different techniques (adversarial suffixes, persuasion, prompting template), as well
+              as results on refused harmless (HL) and accepted harmful (HF) instructions.
+              
+            </figcaption>
           </div>
         
           <div class="content-text">
@@ -394,7 +399,7 @@
                 Based on our findings, we propose a "Latent Guard" model that uses the LLM's own internal belief of harmfulness to detect unsafe inputs.
             </p>
             <ul>
-                <li>This Latent Guard is competitive with, and in some cases outperforms, dedicated guard models like Llama Guard 3 8B.</li>
+                <li>This Latent Guard is competitive with, and in some cases outperforms, dedicated guard models like Llama Guard 3 8B as shown in Table 1.</li>
                 <li>It was particularly effective at detecting harmful prompts using persuasion techniques and in identifying cases of over-refusal. On the Qwen2 model, the Latent Guard achieved 75% accuracy on persuasion prompts, compared to 17.8% for Llama Guard 3.</li>
                 <li>Crucially, this internal belief of harmfulness was found to be robust to "finetuning attacks," where a model is maliciously retrained to accept harmful instructions. Even after finetuning, the internal harmfulness signal remained largely unchanged.</li>
             </ul>
