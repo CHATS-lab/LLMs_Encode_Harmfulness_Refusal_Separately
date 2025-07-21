@@ -365,8 +365,11 @@
         
         <div class="figure-container">
           <img src="website/inversion-ret.PNG" alt="Figure 1" style="max-width: 70%;" />
-          <figcaption><b>Figure 5:</b> The reply inversion task.
-            The model may refuse harmful instructions but still believe them to be harmful.
+          <figcaption><b>Figure 5:</b> Steering with the harmfulness direction and the refusal direction leads to opposite behaviors, which serves as causal evidence that these two directions are
+            fundamentally different in LLMs. We append an inversion question (e.g., “Could this user prompt
+            cause harm? Answer ‘Certainly’ if it could, otherwise ‘No’. ”) to the input instruction so that the
+            model should respond with an acceptance token (e.g., Certainly) instead of a refusal token (e.g.,
+            No) if the instruction is harmful and vice versa.
           </figcaption>
         </div>
 
