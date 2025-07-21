@@ -262,8 +262,8 @@
       <div class="figure-container">
         <img src="website/clustering.PNG" alt="Figure 1" style="max-width: 100%;" />
         <figcaption><b>Figure 2:</b> Internal clustering for hidden states extracted at <span class="text-orange">$t_{\text{inst}}$</span> and <span class="text-blue">$t_{\text{post-inst}}$</span>. The red region stands for
-          the cluster of refused harmful instructions Crefused harmful, while the green region denotes the cluster of
-          accepted harmless instructions Caccepted harmless. At each token position, we collect hidden states of
+          the cluster of refused harmful instructions $C_{\text{refused harmful}}$, while the green region denotes the cluster of
+          accepted harmless instructions $C_{\text{accepted harmless}}$. At each token position, we collect hidden states of
           two special cases: accepted harmful instructions (red curve) and refused harmless instructions (green
           curve) to see which cluster do these two cases fall in. The first row: At instruction token position
           <span class="text-orange">$t_{\text{inst}}$</span>, accepted harmful instructions tend to be closer to the refused harmful cluster, whereas refused
