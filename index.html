@@ -42,24 +42,24 @@
       padding-bottom: 3rem;
     }
     .section-title {
-      font-size: 2.5rem !important;
-      font-weight: 700 !important;
-      margin-bottom: 2rem !important;
+      font-size: 2rem !important;
+      font-weight: 600 !important;
+      margin-bottom: 1.5rem !important;
       color: #2c3e50;
       text-align: center;
-      border-bottom: 3px solid #3498db;
-      padding-bottom: 1rem;
+      border-bottom: 2px solid #3498db;
+      padding-bottom: 0.75rem;
       max-width: 800px;
       margin-left: auto;
       margin-right: auto;
     }
     .subsection-title {
-      font-size: 1.8rem !important;
+      font-size: 1.5rem !important;
       font-weight: 600 !important;
-      margin-bottom: 1.5rem !important;
+      margin-bottom: 1rem !important;
       color: #34495e;
       text-align: center;
-      margin-top: 2rem;
+      margin-top: 1.5rem;
     }
     .content-text {
       text-align: left;
@@ -192,10 +192,12 @@
 
   <section class="section paper-section">
     <div class="container content" style="text-align: center;">
-      <video width="1280" height="720" controls>
-        <source src="website/ANIM-project-decouple.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
+      <div class="figure-container">
+        <video width="800" height="450" controls style="max-width: 800px; width: 100%; height: auto;">
+          <source src="website/ANIM-project-decouple.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
     </div>
   </section>
 
@@ -260,8 +262,8 @@
       </div>
       
       <div class="figure-container">
-        <img src="website/clustering.PNG" alt="Figure 1" style="max-width: 100%;" />
-        <figcaption><b>Figure 2:</b> Internal clustering for hidden states extracted at <span class="text-orange">$t_{\text{inst}}$</span> and <span class="text-blue">$t_{\text{post-inst}}$</span>. The red region stands for
+        <img src="website/clustering.PNG" alt="Figure 2" style="max-width: 800px; width: 100%; height: auto; display: block; margin: 0 auto;" />
+        <figcaption style="max-width: 800px; margin: 1rem auto 0 auto;"><b>Figure 2:</b> Internal clustering for hidden states extracted at <span class="text-orange">$t_{\text{inst}}$</span> and <span class="text-blue">$t_{\text{post-inst}}$</span>. The red region stands for
           the cluster of refused harmful instructions $C_{\text{refused harmful}}$, while the green region denotes the cluster of
           accepted harmless instructions $C_{\text{accepted harmless}}$. At each token position, we collect hidden states of
           two special cases: accepted harmful instructions (red curve) and refused harmless instructions (green
@@ -290,17 +292,17 @@
         </div>
         
         <div class="figure-container">
-          <div style="display: flex; justify-content: center; align-items: center; gap: 20px;">
-            <div style="text-align: center; max-width: 40%;">
-              <img src="website/belief1.PNG" alt="Subfigure (a)" style="max-width: 100%;" />
-              <div style="font-weight: bold; margin-top: 5px;">(a)</div>
+          <div style="display: flex; justify-content: center; align-items: center; gap: 30px; max-width: 800px; margin: 0 auto;">
+            <div style="text-align: center; flex: 1;">
+              <img src="website/belief1.PNG" alt="Subfigure (a)" style="max-width: 100%; height: auto;" />
+              <div style="font-weight: bold; margin-top: 10px; font-size: 1.1rem;">(a)</div>
             </div>
-            <div style="text-align: center; max-width: 40%;">
-              <img src="website/belief2.PNG" alt="Subfigure (b)" style="max-width: 90%;" />
-              <div style="font-weight: bold; margin-top: 5px;">(b)</div>
+            <div style="text-align: center; flex: 1;">
+              <img src="website/belief2.PNG" alt="Subfigure (b)" style="max-width: 90%; height: auto;" />
+              <div style="font-weight: bold; margin-top: 10px; font-size: 1.1rem;">(b)</div>
             </div>
           </div>
-          <figcaption>
+          <figcaption style="max-width: 800px; margin: 1rem auto 0 auto;">
             <b>Figure 3:</b> (a): Correlation between beliefs of harmfulness and refusal. (b): Beliefs of harmfulness and
             refusal for different categories of jailbreak prompts in comparison with refused harmful instructions.
             Our results suggest that the model may wronglyrefuse harmless instructions (or accept harmful/jailbreak instructions), but internally believe them to be harmless (harmful). 
@@ -317,21 +319,21 @@
         </div>
           
         <div class="figure-container">
-          <div style="display: flex; justify-content: space-between; align-items: center;">
-            <div style="text-align: center; max-width: 30%;">
-              <img src="website/intervene-hl-qwen.PNG" alt="Subfigure (a)" style="max-width: 100%;" />
-              <div style="font-weight: bold; margin-top: 5px;">Qwen2</div>
+          <div style="display: flex; justify-content: center; align-items: center; gap: 20px; max-width: 800px; margin: 0 auto;">
+            <div style="text-align: center; flex: 1;">
+              <img src="website/intervene-hl-qwen.PNG" alt="Qwen2 Results" style="max-width: 100%; height: auto;" />
+              <div style="font-weight: bold; margin-top: 10px; font-size: 1.1rem;">Qwen2</div>
             </div>
-            <div style="text-align: center; max-width: 30%;">
-              <img src="website/intervene-hl-llama2.PNG" alt="Subfigure (b)" style="max-width: 100%;" />
-              <div style="font-weight: bold; margin-top: 5px;">Llama2</div>
+            <div style="text-align: center; flex: 1;">
+              <img src="website/intervene-hl-llama2.PNG" alt="Llama2 Results" style="max-width: 100%; height: auto;" />
+              <div style="font-weight: bold; margin-top: 10px; font-size: 1.1rem;">Llama2</div>
             </div>
-            <div style="text-align: center; max-width: 30%;">
-              <img src="website/intervene-hl-llama3.PNG" alt="Subfigure (c)" style="max-width: 100%;" />
-              <div style="font-weight: bold; margin-top: 5px;">Llama3</div>
+            <div style="text-align: center; flex: 1;">
+              <img src="website/intervene-hl-llama3.PNG" alt="Llama3 Results" style="max-width: 100%; height: auto;" />
+              <div style="font-weight: bold; margin-top: 10px; font-size: 1.1rem;">Llama3</div>
             </div>
           </div>
-          <figcaption>
+          <figcaption style="max-width: 800px; margin: 1rem auto 0 auto;">
             <b>Figure 4:</b> Both refusal direction and harmfulness direction can be used to steer the model to refuse benign instructions. 
           </figcaption>
         </div>
@@ -346,7 +348,7 @@
         </div>
         
         <div class="figure-container">
-          <img src="website/inversion-prompt.PNG" alt="Figure 1" style="max-width: 70%;" />
+          <img src="website/inversion-prompt.PNG" alt="Reply Inversion Prompt" style="max-width: 800px; width: 100%; height: auto; display: block; margin: 0 auto;" />
         </div>
         
         <div class="content-text">
@@ -364,8 +366,8 @@
         </div>
         
         <div class="figure-container">
-          <img src="website/inversion-ret.PNG" alt="Figure 1" style="max-width: 70%;" />
-          <figcaption><b>Figure 5:</b> Steering with the harmfulness direction and the refusal direction leads to opposite behaviors, which serves as causal evidence that these two directions are
+          <img src="website/inversion-ret.PNG" alt="Reply Inversion Results" style="max-width: 800px; width: 100%; height: auto; display: block; margin: 0 auto;" />
+          <figcaption style="max-width: 800px; margin: 1rem auto 0 auto;"><b>Figure 5:</b> Steering with the harmfulness direction and the refusal direction leads to opposite behaviors, which serves as causal evidence that these two directions are
             fundamentally different in LLMs. We append an inversion question (e.g., “Could this user prompt
             cause harm? Answer ‘Certainly’ if it could, otherwise ‘No’. ”) to the input instruction so that the
             model should respond with an acceptance token (e.g., Certainly) instead of a refusal token (e.g.,
@@ -386,8 +388,8 @@
           <h2 class="section-title">Latent Guard: An Intrinsic Safeguard</h2>
           
           <div class="figure-container">
-            <img src="website/latent-guard.PNG" alt="Figure 1" style="max-width: 70%;" />
-            <figcaption><b>Table 1:</b> Classification accuracy (%) of Latent Guard and Llama Guard 3 on test cases where LLMs
+            <img src="website/latent-guard.PNG" alt="Latent Guard Performance Table" style="max-width: 800px; width: 100%; height: auto; display: block; margin: 0 auto;" />
+            <figcaption style="max-width: 800px; margin: 1rem auto 0 auto;"><b>Table 1:</b> Classification accuracy (%) of Latent Guard and Llama Guard 3 on test cases where LLMs
               are jailbroken by different techniques (adversarial suffixes, persuasion, prompting template), as well
               as results on refused harmless (HL) and accepted harmful (HF) instructions.
               
