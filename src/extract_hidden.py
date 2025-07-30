@@ -321,7 +321,7 @@ def main() -> None:
     parser.add_argument('--right', default=10, type=int, help='Right index for data slicing')
     parser.add_argument('--random_sample_harmful', default=0, type=int, help='Randomly sample harmful examples')
     parser.add_argument('--batch_size', default=1, type=int, help='Batch size')
-    parser.add_argument("--output_pth", default='data/medcq.json', type=str, help="Output path")
+    parser.add_argument("--output_pth", default='output/dir.pt', type=str, help="Output path of generated directions")
     parser.add_argument("--seed", default=42, type=int, help="Random seed")
     parser.add_argument('--mode', default='diff-mean', type=str, help='Mode')
     parser.add_argument('--positions', default='-1', type=str, help='Positions to extract')
